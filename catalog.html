@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог - SportPro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">SportPro</div>
+            <nav class="nav">
+                <a href="main.html" class="nav-link">Главная</a>
+                <a href="catalog.html" class="nav-link active">Каталог</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="catalog-page">
+        <div class="container">
+            <h1>Каталог товаров</h1>
+            
+            <div class="catalog-grid">
+                <!-- Кроссовки (ссылка на страницу товара) -->
+                <a href="product.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1635&q=80" alt="Кроссовки для бега">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Кроссовки для бега</h3>
+                        <div class="product-price">5 999 ₽</div>
+                        <button class="btn add-to-cart">В корзину</button>
+                    </div>
+                </a>
+
+                <!-- Другие товары -->
+                <a href="product-shirt.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1459&q=80" alt="Футболка">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Футболка тренировочная</h3>
+                        <div class="product-price">1 999 ₽</div>
+                        <button class="btn add-to-cart">В корзину</button>
+                    </div>
+                </a>
+
+                <a href="product-mat.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80" alt="Коврик">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Йога-коврик</h3>
+                        <div class="product-price">1 299 ₽</div>
+                        <button class="btn add-to-cart">В корзину</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2023 SportPro. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Обработчик для кнопок "В корзину"
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Товар добавлен в корзину');
+            });
+        });
+    </script>
+</body>
+</html>
