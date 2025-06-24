@@ -28,20 +28,24 @@
                 <!-- Форма обратной связи -->
                 <section class="contact-form">
                     <h2>Обратная связь</h2>
-                    <form>
+                    <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Ваше имя</label>
-                            <input type="text" id="name" required>
+                            <input type="text" id="name" name="name">
+                            <div class="error" id="name-error">Имя должно содержать минимум 2 символа</div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" required>
+                            <input type="email" id="email" name="email">
+                            <div class="error" id="email-error">Введите корректный email</div>
                         </div>
                         <div class="form-group">
                             <label for="message">Сообщение</label>
-                            <textarea id="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5"></textarea>
+                            <div class="error" id="message-error">Сообщение должно содержать минимум 10 символов</div>
                         </div>
                         <button type="submit" class="submit-btn">Отправить</button>
+                        <div class="success-message" id="success-message">Сообщение успешно отправлено!</div>
                     </form>
                 </section>
 
@@ -76,7 +80,11 @@
                 <!-- Карта -->
                 <section class="map">
                     <h2>Мы на карте</h2>
-                    <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Москва</a><a href="https://yandex.ru/maps/213/moscow/geo/sportivnaya_ulitsa/10050171/?ll=37.668480%2C55.610771&utm_medium=mapframe&utm_source=maps&z=17.78" style="color:#eee;font-size:12px;position:absolute;top:14px;">Спортивная улица — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=37.668480%2C55.610771&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCggxMDA1MDE3MRI70KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCh0L_QvtGA0YLQuNCy0L3QsNGPINGD0LvQuNGG0LAiCg2MrBZCFWRwXkI%2C&z=17.78" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+                    <div style="position:relative;overflow:hidden;">
+                        <a href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Москва</a>
+                        <a href="https://yandex.ru/maps/213/moscow/geo/sportivnaya_ulitsa/10050171/?ll=37.668480%2C55.610771&utm_medium=mapframe&utm_source=maps&z=17.78" style="color:#eee;font-size:12px;position:absolute;top:14px;">Спортивная улица — Яндекс Карты</a>
+                        <iframe src="https://yandex.ru/map-widget/v1/?ll=37.668480%2C55.610771&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCggxMDA1MDE3MRI70KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCh0L_QvtGA0YLQuNCy0L3QsNGPINGD0LvQuNGG0LAiCg2MrBZCFWRwXkI%2C&z=17.78" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+                    </div>
                 </section>
             </div>
         </div>
@@ -87,5 +95,7 @@
             <p>© 2023 SportPro. Все права защищены.</p>
         </div>
     </footer>
+
+    <script src="contacts.js"></script>
 </body>
 </html>

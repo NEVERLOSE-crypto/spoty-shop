@@ -13,13 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
     
-    // Проверяем при загрузке
+
     animateOnScroll();
-    
-    // И при прокрутке
+
     window.addEventListener('scroll', animateOnScroll);
     
-    // Для плавного появления карточек по очереди
+   
     const aboutCards = document.querySelectorAll('.about-card');
     aboutCards.forEach((card, index) => {
         card.setAttribute('data-animate', 'true');

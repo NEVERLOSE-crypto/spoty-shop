@@ -48,49 +48,93 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsContainer = document.getElementById('products-container');
     const searchInput = document.getElementById('search-input');
     const sortSelect = document.getElementById('sort-select');
+    const paginationContainer = document.getElementById('pagination');
+    
+    
+    const itemsPerPage = 3;
+    let currentPage = 1;
+    let filteredProducts = [...products];
 
-    // Отображение товаров
-    function displayProducts(productsToDisplay) {
-        productsContainer.innerHTML = '';
+   
+    function displayProducts() {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
         
-        if (productsToDisplay.length === 0) {
-            productsContainer.innerHTML = '<p class="no-results">Товары не найдены</p>';
-            return;
-        }
-        
-        productsToDisplay.forEach(product => {
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            productCard.innerHTML = `
-                <a href="product.html?id=${product.id}" class="product-link">
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <div class="product-price">${product.price.toLocaleString()} ₽</div>
-                        <button class="btn add-to-cart">В корзину</button>
-                    </div>
-                </a>
-            `;
-            productsContainer.appendChild(productCard);
-        });
+        productsContainer.innerHTML = paginatedProducts.length ? 
+            paginatedProducts.map(product => `
+                <div class="product-card">
+                    <a href="product.html?id=${product.id}" class="product-link">
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-price">${product.price.toLocaleString()} ₽</div>
+                            <button class="btn add-to-cart">В корзину</button>
+                        </div>
+                    </a>
+                </div>
+            `).join('') : '<p class="no-results">Товары не найдены</p>';
+
+        renderPagination();
     }
 
-    // Поиск товаров
+ 
+    function renderPagination() {
+        const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+        paginationContainer.innerHTML = '';
+        
+        if (totalPages <= 1) return;
+        
+       
+        const prevButton = document.createElement('button');
+        prevButton.innerHTML = '&laquo;';
+        prevButton.className = 'page-button';
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener('click', () => {
+            currentPage--;
+            displayProducts();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        paginationContainer.appendChild(prevButton);
+       
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            pageButton.className = `page-button ${i === currentPage ? 'active' : ''}`;
+            pageButton.addEventListener('click', () => {
+                currentPage = i;
+                displayProducts();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            paginationContainer.appendChild(pageButton);
+        }
+        
+       
+        const nextButton = document.createElement('button');
+        nextButton.innerHTML = '&raquo;';
+        nextButton.className = 'page-button';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.addEventListener('click', () => {
+            currentPage++;
+            displayProducts();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        paginationContainer.appendChild(nextButton);
+    }
+
+   
     function searchProducts() {
         const searchTerm = searchInput.value.toLowerCase();
-        const filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(searchTerm) ||
+        filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) || 
             product.category.toLowerCase().includes(searchTerm)
         );
         
-        // Применяем текущую сортировку к отфильтрованным товарам
-        const sortedProducts = sortProducts(filteredProducts, sortSelect.value);
-        displayProducts(sortedProducts);
+        currentPage = 1;
+        applySortAndDisplay();
     }
 
-    // Сортировка товаров
     function sortProducts(productsToSort, sortOption) {
         switch(sortOption) {
             case 'price-asc':
@@ -106,13 +150,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Обработчики событий
-    searchInput.addEventListener('input', searchProducts);
-    sortSelect.addEventListener('change', () => {
-        const sortedProducts = sortProducts(products, sortSelect.value);
-        displayProducts(sortedProducts);
-    });
+    function applySortAndDisplay() {
+        filteredProducts = sortProducts(filteredProducts, sortSelect.value);
+        displayProducts();
+    }
 
-    // Инициализация - отображаем все товары при загрузке
-    displayProducts(products);
+
+    searchInput.addEventListener('input', searchProducts);
+    sortSelect.addEventListener('change', applySortAndDisplay);
+
+
+    displayProducts();
 });
